@@ -23,6 +23,7 @@ public:
 
 private:
 	void UOpenDoor::OpenDoor();
+	void UOpenDoor::CloseDoor();
 
 	UPROPERTY(VisibleAnywhere)
 	float OpenAngle = 90.f;
@@ -32,5 +33,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	AActor* ActorThatOpens;
-	
+
+	UPROPERTY(EditAnywhere)
+	float DoorCloseDelay = 1.f;
+
+	float LastDoorOpenTime;
+	AActor* Owner;
 };
