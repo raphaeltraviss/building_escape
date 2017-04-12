@@ -45,17 +45,15 @@ void UGrabber::BeginPlay()
 
 void UGrabber::Grab() {
 	UE_LOG(LogTemp, Warning, TEXT("We grabbed stuff!"))
+
+	GetFirstPhysicsBodyInReach();
 }
 
 void UGrabber::Release() {
 	UE_LOG(LogTemp, Warning, TEXT("We set something down!!"))
 }
 
-// Called every frame
-void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
-{
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-	
+const FHitResult UGrabber::GetFirstPhysicsBodyInReach() {
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 
@@ -65,17 +63,6 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	);
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
-
-	DrawDebugLine(
-		GetWorld(),
-		PlayerViewPointLocation,
-		LineTraceEnd,
-		FColor(255, 0, 0),
-		false,
-		0.0f,
-		0,
-		10.0f
-	);
 
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 
@@ -93,5 +80,13 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	if (ActorHit) {
 		UE_LOG(LogTemp, Warning, TEXT("The hit actor is %s"), *(ActorHit->GetName()))
 	}
+
+	return FHitResult();
+}
+
+// Called every frame
+void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
+{
+	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 }
 

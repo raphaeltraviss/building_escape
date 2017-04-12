@@ -30,4 +30,6 @@ private:
 	// Ray-cast and grab what's in reach.
 	void Grab();
 	void Release();
+
+	const FHitResult GetFirstPhysicsBodyInReach();
 };
