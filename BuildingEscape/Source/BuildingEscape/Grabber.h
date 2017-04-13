@@ -5,6 +5,11 @@
 #include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
 
+struct GrabberLine {
+	FVector Start;
+	FVector End;
+};
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UGrabber : public UActorComponent
@@ -26,10 +31,13 @@ private:
 	APlayerController* player;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
+	FVector GrabberLineBegin;
+	FVector GrabberLineEnd;
 
 	// Ray-cast and grab what's in reach.
 	void Grab();
 	void Release();
+	GrabberLine GetGrabberLine();
 
 	const FHitResult GetFirstPhysicsBodyInReach();
 };
