@@ -20,7 +20,6 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
 
 	// This component can't work unless the actor also has a PhysicsHandle component.
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
