@@ -28,7 +28,7 @@ public:
 
 private:
 	float Reach = 100.f;
-	APlayerController* player;
+	APlayerController* player = nullptr;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
 	FVector GrabberLineBegin;

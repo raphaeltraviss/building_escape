@@ -21,6 +21,9 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	Owner = GetOwner();
+	if (!PressurePlate) {
+		UE_LOG(LogTemp, Error, TEXT("Trigger volume is missing!"));
+	}
 }
 
 void UOpenDoor::OpenDoor() {
@@ -50,6 +53,9 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 	TArray<AActor*> OverlappingActors;
+
+	if (!PressurePlate) { return 0.f; }
+
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
 	float TotalMass = 0.f;

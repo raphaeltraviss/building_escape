@@ -44,6 +44,11 @@ void UGrabber::Grab() {
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 
+	if (!PhysicsHandle) {
+		UE_LOG(LogTemp, Error, TEXT("Physics handle component missing!"));
+		return;
+	}
+
 	// Attach a physics handle only if an actor was within the grab line.
 	if (ActorHit) {
 		PhysicsHandle->GrabComponent(
@@ -56,6 +61,10 @@ void UGrabber::Grab() {
 }
 
 void UGrabber::Release() {
+	if (!PhysicsHandle) {
+		UE_LOG(LogTemp, Error, TEXT("Physics handle component missing!"));
+		return;
+	}
 	PhysicsHandle->ReleaseComponent();
 }
 
@@ -100,6 +109,11 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach() {
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+
+	if (!PhysicsHandle) {
+		UE_LOG(LogTemp, Error, TEXT("Physics handle component missing!"));
+		return;
+	}
 
 	if (PhysicsHandle->GrabbedComponent) {
 		GrabberLine GrabberLine = GetGrabberLine();
